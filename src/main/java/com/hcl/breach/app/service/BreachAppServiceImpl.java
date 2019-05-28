@@ -71,18 +71,25 @@ public class BreachAppServiceImpl implements BreachAppService {
 			Optional<BreachInfo> breachInfo = breachRepository.findById(id);
 
 			if (breachInfo.isPresent()) {
-				if (breachInfo.get().getStatus().equals("Accepted")) {
-					response.setMessage("The breach has been already Accepted");
+				
+				BreachInfo breach = breachInfo.get();
+				if(breach!=null) {
+					
+					if(status.equalsIgnoreCase("accept")) {
+						breach.setStatus("ACCEPTED");
+						breachRepository.save(breach);
+						response.setMessage("The breach has been Accepted");
+					}else if(status.equalsIgnoreCase("reject")) {
+						breach.setStatus("REJECTED");
+						breachRepository.save(breach);
+						response.setMessage("The breach has been Rejected");
+					}else {
+						breach.setStatus("PENDING");
+						breachRepository.save(breach);
+						response.setMessage("The breach has been still Pending ...!");
+					}
 				}
-
-				else {
-
-					breachRepository.updateBreachStatus(status, id);
-					logger.info("updated Successfully");
-					response.setMessage("The breach has been Accepted");
-
-				}
-
+				
 			} else {
 				response.setMessage("The record was not found");
 			}
