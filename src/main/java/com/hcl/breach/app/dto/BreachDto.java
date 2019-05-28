@@ -1,49 +1,27 @@
-package com.hcl.breach.app.entity;
+package com.hcl.breach.app.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-@Entity
-@Table(name="BREACH_INFO")
-@NamedQuery(name="BreachInfo.updateBreachStatus",query="update BreachInfo e set e.status=:status where e.breachId=:breachId")
-public class BreachInfo implements Serializable {
+public class BreachDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private Long breachId;
 	
-	@Column
 	private String breachName;
 	
-	@Column
 	private String breachType;
 	
-	@Column
 	private String breachDesc;
 	
-	@Column
 	private String createByUser;
 	
-	@Column
 	private String status;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "DATETIME")
 	private Date createDt;
 	
-	public BreachInfo() {
+	public BreachDto() {
 		super();
 	}
 
@@ -106,7 +84,7 @@ public class BreachInfo implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BreachInfo [breachId=");
+		builder.append("BreachDto [breachId=");
 		builder.append(breachId);
 		builder.append(", breachName=");
 		builder.append(breachName);
@@ -124,6 +102,4 @@ public class BreachInfo implements Serializable {
 		return builder.toString();
 	}
 	
-	
-
 }
