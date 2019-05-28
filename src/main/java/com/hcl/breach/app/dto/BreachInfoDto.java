@@ -73,6 +73,8 @@ public class BreachInfoDto {
 	public void setCreateDt(Date createDt) {
 		this.createDt = createDt;
 	}
+
+	
 	
 	
 
