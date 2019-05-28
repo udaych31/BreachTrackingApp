@@ -40,14 +40,14 @@ public class BreachAppServiceImpl implements BreachAppService {
 				logger.debug(res.toString());
 				response.setMessage("Breach created successfully...!");
 				response.setStatusCode(201);
-				BreachDto dto=new BreachDto();
+				BreachDto dto=new BreachDto();				
 				dto.setBreachId(res.getBreachId());
 				dto.setBreachDesc(res.getBreachDesc());
 				dto.setBreachName(res.getBreachName());
 				dto.setBreachType(res.getBreachType());
 				dto.setCreateByUser(res.getCreateByUser());
 				dto.setCreateDt(res.getCreateDt());
-				dto.setStatus(res.getStatus());
+				dto.setStatus(res.getStatus());				
 				logger.debug(dto.toString());
 				response.setResponse(dto);
 			}
