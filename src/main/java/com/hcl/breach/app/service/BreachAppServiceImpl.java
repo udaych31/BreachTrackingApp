@@ -29,9 +29,7 @@ public class BreachAppServiceImpl implements BreachAppService {
 	@Autowired
 	private BreachRepository breachRepository;
 
-	@Autowired
-	private BreachRepository repository;
-	
+		
 	@Override
 	public BreachCreateResponse createBreach(BreachCreateRequest request) {
 		BreachCreateResponse response=new BreachCreateResponse();
@@ -142,6 +140,6 @@ public class BreachAppServiceImpl implements BreachAppService {
 	
 	public BreachInfo searchBreachById(Long breachId) {
 		logger.info("******* Entering to searchBreachById() in service *******");
-		return repository.findByBreachId(breachId);
+		return breachRepository.findByBreachId(breachId);
 		}
 }
