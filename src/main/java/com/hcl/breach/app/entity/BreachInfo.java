@@ -123,7 +123,17 @@ public class BreachInfo implements Serializable {
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
+	public BreachInfo(Long breachId, String breachName, String breachType, String breachDesc, String createByUser,
+			String status, Date createDt) {
+		this.breachId = breachId;
+		this.breachName = breachName;
+		this.breachType = breachType;
+		this.breachDesc = breachDesc;
+		this.createByUser = createByUser;
+		this.status = status;
+		this.createDt = createDt;
+	}
 	
 
 }

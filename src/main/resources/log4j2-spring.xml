@@ -6,7 +6,7 @@
 				pattern="%style{%d{ISO8601}}{black} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable" />
 		</Console>
 
-		<RollingFile name="RollingFile" fileName="C:/Uday/logs/excellog4j.log"
+		<RollingFile name="RollingFile" fileName="C:/Uday/logs/breachlog4j.log"
 			filePattern="C:/USK/$${date:yyyy-MM}/application-%d{-dd-MMMM-yyyy}-%i.log.gz">
 			<PatternLayout>
 				<pattern>%d %p %C{1.} [%t] %m%n</pattern>

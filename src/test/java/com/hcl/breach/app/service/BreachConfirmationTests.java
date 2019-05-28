@@ -1,4 +1,4 @@
-package com.hcl.breach.BreachTrackingApp.service;
+package com.hcl.breach.app.service;
 
 import java.util.Optional;
 

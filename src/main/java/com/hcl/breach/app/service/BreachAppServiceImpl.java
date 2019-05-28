@@ -1,17 +1,22 @@
 package com.hcl.breach.app.service;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hcl.breach.app.dto.BreachInfoDto;
+import com.hcl.breach.app.dto.ListBreachResponse;
 import com.hcl.breach.app.entity.BreachInfo;
 import com.hcl.breach.app.repository.BreachRepository;
+import java.util.Optional;
 import com.hcl.breach.app.repository.BreachResponse;
 
 import java.util.Date;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import com.hcl.breach.app.dto.BreachCreateRequest;
 import com.hcl.breach.app.dto.BreachCreateResponse;
 import com.hcl.breach.app.dto.BreachDto;
@@ -24,6 +29,9 @@ public class BreachAppServiceImpl implements BreachAppService {
 	@Autowired
 	private BreachRepository breachRepository;
 
+	@Autowired
+	private BreachRepository repository;
+	
 	@Override
 	public BreachCreateResponse createBreach(BreachCreateRequest request) {
 		BreachCreateResponse response=new BreachCreateResponse();
@@ -103,4 +111,37 @@ public class BreachAppServiceImpl implements BreachAppService {
 
 	}
 
+	@Override
+	public ListBreachResponse listbreach() {
+		ListBreachResponse listBreachResponse = new ListBreachResponse();
+		Logger log = LogManager.getLogger(BreachAppServiceImpl.class);
+		try {
+			List<BreachInfo> breachInfoList = breachRepository.findAll();
+				
+			ArrayList<BreachInfoDto> breachInfoListDto = new ArrayList<BreachInfoDto>();
+			for (BreachInfo breachInfo : breachInfoList) {
+				BreachInfoDto BreachInfoDtoObj = new BreachInfoDto();
+				BreachInfoDtoObj.setBreachId(breachInfo.getBreachId());
+				BreachInfoDtoObj.setBreachName(breachInfo.getBreachName());
+				BreachInfoDtoObj.setBreachType(breachInfo.getBreachType());
+				BreachInfoDtoObj.setCreateByUser(breachInfo.getCreateByUser());
+				BreachInfoDtoObj.setCreateDt(breachInfo.getCreateDt());
+				BreachInfoDtoObj.setStatus(breachInfo.getStatus());
+				BreachInfoDtoObj.setBreachDesc(breachInfo.getBreachDesc());
+				breachInfoListDto.add(BreachInfoDtoObj);
+
+			}
+			listBreachResponse.setBreachInfoDto(breachInfoListDto);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		return listBreachResponse;
+	}
+
+	
+	
+	public BreachInfo searchBreachById(Long breachId) {
+		logger.info("******* Entering to searchBreachById() in service *******");
+		return repository.findByBreachId(breachId);
+		}
 }
