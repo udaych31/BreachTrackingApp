@@ -1,4 +1,4 @@
-package com.hcl.breach.BreachTrackingApp.service;
+package com.hcl.breach.app.service;
 
 import java.util.Optional;
 
@@ -39,11 +39,11 @@ public class BreachConfirmationTests {
 		Optional<BreachInfo> breachs=Optional.empty();
 		
 		BreachInfo info=new BreachInfo();
-		info.setStatus("acc");
+		info.setStatus("ACCEPTED");
 		
 		breachs=Optional.of(info);
 		
-		String s="Accepted";
+		String s="accept";
 		Long id=1L;
 		
 		Mockito.when(breachRepository.findById(id)).thenReturn(breachs);
