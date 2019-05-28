@@ -8,10 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="BREACH_INFO")
+@NamedQuery(name="BreachInfo.updateBreachStatus",query="update BreachInfo e set e.status=:status where e.breachId=:breachId")
 public class BreachInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
