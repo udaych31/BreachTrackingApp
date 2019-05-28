@@ -8,12 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="BREACH_INFO")
+@NamedQuery(name="BreachInfo.updateBreachStatus",query="update BreachInfo e set e.status=:status where e.breachId=:breachId")
 public class BreachInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -121,7 +123,17 @@ public class BreachInfo implements Serializable {
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
+	public BreachInfo(Long breachId, String breachName, String breachType, String breachDesc, String createByUser,
+			String status, Date createDt) {
+		this.breachId = breachId;
+		this.breachName = breachName;
+		this.breachType = breachType;
+		this.breachDesc = breachDesc;
+		this.createByUser = createByUser;
+		this.status = status;
+		this.createDt = createDt;
+	}
 	
 
 }
