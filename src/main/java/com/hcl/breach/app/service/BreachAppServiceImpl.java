@@ -29,9 +29,7 @@ public class BreachAppServiceImpl implements BreachAppService {
 	@Autowired
 	private BreachRepository breachRepository;
 
-	@Autowired
-	private BreachRepository repository;
-	
+		
 	@Override
 	public BreachCreateResponse createBreach(BreachCreateRequest request) {
 		BreachCreateResponse response=new BreachCreateResponse();
@@ -48,14 +46,14 @@ public class BreachAppServiceImpl implements BreachAppService {
 				logger.debug(res.toString());
 				response.setMessage("Breach created successfully...!");
 				response.setStatusCode(201);
-				BreachDto dto=new BreachDto();
+				BreachDto dto=new BreachDto();				
 				dto.setBreachId(res.getBreachId());
 				dto.setBreachDesc(res.getBreachDesc());
 				dto.setBreachName(res.getBreachName());
 				dto.setBreachType(res.getBreachType());
 				dto.setCreateByUser(res.getCreateByUser());
 				dto.setCreateDt(res.getCreateDt());
-				dto.setStatus(res.getStatus());
+				dto.setStatus(res.getStatus());				
 				logger.debug(dto.toString());
 				response.setResponse(dto);
 			}
@@ -79,18 +77,25 @@ public class BreachAppServiceImpl implements BreachAppService {
 			Optional<BreachInfo> breachInfo = breachRepository.findById(id);
 
 			if (breachInfo.isPresent()) {
-				if (breachInfo.get().getStatus().equals("Accepted")) {
-					response.setMessage("The breach has been already Accepted");
+				
+				BreachInfo breach = breachInfo.get();
+				if(breach!=null) {
+					
+					if(status.equalsIgnoreCase("accept")) {
+						breach.setStatus("ACCEPTED");
+						breachRepository.save(breach);
+						response.setMessage("The breach has been Accepted");
+					}else if(status.equalsIgnoreCase("reject")) {
+						breach.setStatus("REJECTED");
+						breachRepository.save(breach);
+						response.setMessage("The breach has been Rejected");
+					}else {
+						breach.setStatus("PENDING");
+						breachRepository.save(breach);
+						response.setMessage("The breach has been still Pending ...!");
+					}
 				}
-
-				else {
-
-					breachRepository.updateBreachStatus(status, id);
-					logger.info("updated Successfully");
-					response.setMessage("The breach has been Accepted");
-
-				}
-
+				
 			} else {
 				response.setMessage("The record was not found");
 			}
@@ -135,6 +140,6 @@ public class BreachAppServiceImpl implements BreachAppService {
 	
 	public BreachInfo searchBreachById(Long breachId) {
 		logger.info("******* Entering to searchBreachById() in service *******");
-		return repository.findByBreachId(breachId);
+		return breachRepository.findByBreachId(breachId);
 		}
 }
