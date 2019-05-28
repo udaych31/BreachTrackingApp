@@ -7,5 +7,5 @@ import com.hcl.breach.app.entity.BreachInfo;
 
 @Repository
 public interface BreachRepository extends JpaRepository<BreachInfo, Long> {
-
+    public BreachInfo findByBreachId(Long breachId);
 }
